@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure PDF Access</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Secure PDF Access</h2>
+    <p>Checking device compatibility...</p>
+
+    <div id="accessDenied" class="hidden">
+        <p style="color: red;">Access Denied! This PDF is restricted to specific devices.</p>
+    </div>
+
+    <div id="accessGranted" class="hidden">
+        <p style="color: green;">Access Granted! Click below to download the PDF.</p>
+        <a href="yourfile.pdf" download>Download PDF</a>
+    </div>
+
+    <script>
+        function getDeviceModel() {
+            let userAgent = navigator.userAgent.toLowerCase();
+            console.log("User Agent:", userAgent);
+
+            // Define the allowed device models (modify this list)
+            let allowedDevices = [
+                "moto g64",  // Example for Moto G64
+                "iphone", 
+                "samsung"
+            ];
+
+            // Check if the device is in the allowed list
+            let accessGranted = allowedDevices.some(device => userAgent.includes(device));
+
+            if (accessGranted) {
+                document.getElementById("accessGranted").classList.remove("hidden");
+            } else {
+                document.getElementById("accessDenied").classList.remove("hidden");
+            }
+        }
+
+        // Run the check on page load
+        window.onload = getDeviceModel;
+    </script>
+</body>
+</html>
